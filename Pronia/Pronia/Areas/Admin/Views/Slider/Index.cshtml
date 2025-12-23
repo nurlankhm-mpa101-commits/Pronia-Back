@@ -1,0 +1,30 @@
+@model List<Slider>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">ImagePath</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Slider slider in Model)
+    {
+        <tr>
+            <th scope="row">@slider.Id</th>
+            <td>@slider.Title</td>
+            <td>@slider.Description</td>
+            <td><img src="@slider.Title"/>  </td>
+            <td>
+                <a class="btn btn-warning">Update</a>
+                <a class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        
+    }
+
+    </tbody>
+</table>
