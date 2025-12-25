@@ -1,0 +1,81 @@
+@model List<Card>
+
+@* HEADER + CREATE BUTTON *@
+@* HEADER + CREATE BUTTON — корректное расположение внутри сетки *@
+<div class="content-wrapper">
+
+    @* CARD занимает всё пространство *@
+    <div class="card w-100">
+        <div class="card-body">
+
+            @* HEADER + CREATE BUTTON *@
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="mb-0">Cards</h3>
+                <a asp-area="Admin" asp-action="Create" class="btn btn-primary btn-lg px-4">Create</a>
+            </div>
+
+            @* TABLE *@
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    @foreach (Card card in Model)
+                    {
+                        <tr>
+                            <td>@card.Id</td>
+                            <td>@card.Title</td>
+                            <td>@card.Description</td>
+                            <td>
+                                <img src="@card.ImageUrl"
+                                     class="img-thumbnail"
+                                     style="max-width: 70px;" />
+                            </td>
+
+                            <td class="text-end">
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary btn-sm toggle-btn"
+                                            data-target="row-@card.Id">
+                                        Toggle
+                                    </button>
+                                    <a asp-action="Update" asp-route-id="@card.Id" class="btn btn-warning btn-sm">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@card.Id" class="btn btn-danger btn-sm">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        @* HIDDEN TOGGLE ROW *@
+                        <tr id="row-@card.Id" style="display:none;">
+                            <td colspan="5" class="bg-light p-3">
+                                <strong>ID:</strong> @card.Id <br />
+                                <strong>Title:</strong> @card.Title <br />
+                                <strong>Description:</strong> @card.Description <br />
+                                <strong>Image Path:</strong> @card.ImageUrl
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+
+        </div> @* END card-body *@
+    </div> @* END card *@
+
+</div> @* END content-wrapper *@
+
+<script>
+    document.querySelectorAll(".toggle-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const row = document.getElementById(btn.dataset.target);
+            row.style.display = row.style.display === "none" ? "table-row" : "none";
+        });
+    });
+</script>
