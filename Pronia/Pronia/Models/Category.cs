@@ -1,8 +1,13 @@
-namespace Pronia.Models;
+using System.ComponentModel.DataAnnotations;
 
-public class Category:BaseEntity
+namespace Pronia.Models
 {
-    
-    public string Name { get; set; }
-    
+    public class Category
+    {
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Category name is required")]
+        [MaxLength(50)]
+        public string Name { get; set; } = null!;
+    }
 }

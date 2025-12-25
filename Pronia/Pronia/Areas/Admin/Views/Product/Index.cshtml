@@ -1,0 +1,61 @@
+@model List<Pronia.Models.Product>
+
+<div class="container mt-4">
+    <h2>Products</h2>
+    <a asp-action="Create" class="btn btn-success mb-3">Create New Product</a>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach(var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td><img src="@product.ImagePath" style="max-width:70px;" /></td>
+                <td>@product.Category?.Name</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@product.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+        
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+    function deleteProduct(id) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You can't undo this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: "Delete"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/Admin/Product/Delete/${id}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) location.reload();
+                    });
+            }
+        });
+    }
+</script>
+
+        </tbody>
+    </table>
+</div>

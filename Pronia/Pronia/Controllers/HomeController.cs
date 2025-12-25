@@ -17,13 +17,17 @@ public class HomeController : Controller
         
     }
     
-
-
-
+    
     public IActionResult Index()
     {
         var cards = _context.Cards.ToList();
         return View(cards);
+    }
+    
+    public IActionResult Products()
+    {
+        var products = _context.Products.ToList();
+        return View(products);
     }
 
     public IActionResult Privacy()
@@ -36,4 +40,6 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+    
+  
 }
