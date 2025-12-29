@@ -23,5 +23,8 @@ namespace Pronia.Models
         public int CategoryId { get; set; }
 
         public Category? Category { get; set; } = null!;
+        
+        public List<ProductTag> ProductTags { get; set; } = new();
+
     }
 }

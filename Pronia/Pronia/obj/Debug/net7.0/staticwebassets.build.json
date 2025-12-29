@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7Wae1rpZDykgmvFFmHGnvbj6vXhkod4heX/crNVDNvw=",
+  "Hash": "N6OERDpdrkhDGT4/Ob0ASkJwwE0eSpatnhuGByVK8f8=",
   "Source": "Pronia",
   "BasePath": "_content/Pronia",
   "Mode": "Default",
@@ -440,6 +440,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/admin/assets/fonts/Roboto/Roboto-Regular.woff2"
+    },
+    {
+      "Identity": "/Users/nurlanmahmudov/Desktop/Pronia1/Pronia/Pronia/wwwroot/admin/assets/images/3892e904-dfb9-4f00-b703-548d7867a7df.jpeg",
+      "SourceId": "Pronia",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/nurlanmahmudov/Desktop/Pronia1/Pronia/Pronia/wwwroot/",
+      "BasePath": "_content/Pronia",
+      "RelativePath": "admin/assets/images/3892e904-dfb9-4f00-b703-548d7867a7df.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/admin/assets/images/3892e904-dfb9-4f00-b703-548d7867a7df.jpeg"
     },
     {
       "Identity": "/Users/nurlanmahmudov/Desktop/Pronia1/Pronia/Pronia/wwwroot/admin/assets/images/arrow-down-dark.svg",

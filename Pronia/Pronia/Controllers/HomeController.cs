@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Pronia.Contexts;
 using Pronia.Models;
 
@@ -18,10 +19,14 @@ public class HomeController : Controller
     }
     
     
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var cards = _context.Cards.ToList();
-        return View(cards);
+        List<Card> cards = await _context.Cards.ToListAsync();
+        List<Product> products = await  _context.Products.ToListAsync();
+        
+        var model = Tuple.Create(cards, products);
+        
+        return View(model);
     }
     
     public IActionResult Products()

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Pronia.Contexts;
 using Pronia.Models;
 using Pronia.Areas.Admin.ViewModels.Product;
+using Pronia.Extensions;
 
 namespace Pronia.Areas.Admin.Controllers
 {
@@ -36,34 +37,61 @@ namespace Pronia.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductCreateVM vm)
         {
+            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name");
+            ViewBag.Tags = new MultiSelectList(_context.Tags.ToList(), "Id", "Name");
+
             if (!ModelState.IsValid)
+                return View(vm);
+
+            // FILE VALIDATION
+            if (!vm.Image.IsImage())
             {
-                ViewBag.Categories = new SelectList(_context.Categories.ToList(), "Id", "Name", vm.CategoryId);
+                ModelState.AddModelError("Image", "Please select image file");
+                return View(vm);
+            }
+            if (!vm.Image.LessThan(2))
+            {
+                ModelState.AddModelError("Image", "Image must be less than 2 MB");
                 return View(vm);
             }
 
-            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(vm.Image.FileName);
-            string path = Path.Combine(_env.WebRootPath, "uploads", fileName);
+            string fileName = Guid.NewGuid() + Path.GetExtension(vm.Image.FileName);
+            string savePath = Path.Combine(_env.WebRootPath, "admin/assets/images", fileName);
 
-            using (FileStream fs = new(path, FileMode.Create))
+            using (FileStream fs = new FileStream(savePath, FileMode.Create))
             {
                 await vm.Image.CopyToAsync(fs);
             }
 
-            Product p = new()
+            Product p = new Product
             {
                 Name = vm.Name,
                 Description = vm.Description,
                 Price = vm.Price,
-                ImagePath = "/uploads/" + fileName,
+                ImagePath = $"/admin/assets/images/{fileName}",
                 CategoryId = vm.CategoryId
             };
 
             await _context.Products.AddAsync(p);
             await _context.SaveChangesAsync();
 
+            // TAG RELATIONS
+            foreach (var tagId in vm.TagIds)
+            {
+                ProductTag pt = new ProductTag
+                {
+                    ProductId = p.Id,
+                    TagId = tagId
+                };
+
+                await _context.ProductTags.AddAsync(pt);
+            }
+
+            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
+
 
         public async Task<IActionResult> Delete(int id)
         {

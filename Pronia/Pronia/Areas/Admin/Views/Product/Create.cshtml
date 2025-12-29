@@ -4,7 +4,8 @@
 <div class="container mt-4">
     <h2>Create Product</h2>
 
-    <form method="post" asp-action="Create">
+    <form method="post" asp-action="Create" enctype="multipart/form-data"
+    >
         @Html.AntiForgeryToken()
 
         <div class="mb-3">
