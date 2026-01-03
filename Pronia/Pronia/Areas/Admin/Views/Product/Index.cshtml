@@ -1,29 +1,16 @@
 @model List<Pronia.Models.Product>
 
 <style>
-    /* Фиксируем таблицу, чтобы она не растягивалась */
-    .table {
-        table-layout: fixed;
-        width: 100%;
-    }
-
-    /* Настройка колонок с текстом */
-    .truncate-text {
-        white-space: nowrap;      /* Текст в одну строку */
-        overflow: hidden;         /* Скрываем лишнее */
-        text-overflow: ellipsis;  /* Добавляем три точки (...) */
-    }
-
-    /* Колонку с кнопками делаем минимально необходимой ширины */
-    .actions-column {
-        width: 160px;
-        white-space: nowrap;
-    }
+    .table { table-layout: fixed; width: 100%; }
+    .truncate-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .actions-column { width: 160px; white-space: nowrap; }
 </style>
 
 <div class="container mt-4">
     <h2>Products</h2>
     <a asp-action="Create" class="btn btn-success mb-3">Create New Product</a>
+
+    @Html.AntiForgeryToken()
 
     <table class="table table-bordered table-striped">
         <thead>
@@ -42,21 +29,18 @@
         {
         <tr>
             <td>@product.Id</td>
-            @* Ограничиваем имя *@
             <td class="truncate-text" title="@product.Name">@product.Name</td>
-            @* Ограничиваем описание *@
             <td class="truncate-text" title="@product.Description">@product.Description</td>
             <td>@product.Price ₼</td>
             <td>
-                @* Исправленный путь: добавляем /assets/... и проверку *@
-                <img src="/assets/images/website-images/@product.ImagePath"
+                <img src="@product.ImagePath"
                      style="width:70px; height:70px; object-fit: cover; border-radius: 5px;"
                      onerror="this.onerror=null;this.src='/assets/images/no-image.png';" />
             </td>
             <td>@product.Category?.Name</td>
             <td class="actions-column">
                 <a asp-action="Update" asp-route-id="@product.Id" class="btn btn-warning btn-sm">Edit</a>
-                <button onclick="deleteProduct(@product.Id)" class="btn btn-danger btn-sm">Delete</button>
+                <button type="button" onclick="deleteProduct(@product.Id)" class="btn btn-danger btn-sm">Delete</button>
             </td>
         </tr>
         }
@@ -64,12 +48,13 @@
     </table>
 </div>
 
+@* Подключаем напрямую, чтобы не зависеть от секций *@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function deleteProduct(id) {
         Swal.fire({
             title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            text: "This product and its image will be deleted forever!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -77,14 +62,25 @@
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                // Используем метод POST или DELETE, если контроллер настроен так
-                fetch(`/Admin/Product/Delete/${id}`, { method: 'POST' })
-                    .then(res => {
-                        if (res.ok) {
-                            location.reload();
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                fetch(`/Admin/Product/Delete/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        "RequestVerificationToken": token
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire("Deleted!", "Product has been removed.", "success")
+                                .then(() => location.reload());
                         } else {
-                            Swal.fire("Error!", "Could not delete product.", "error");
+                            Swal.fire("Error!", data.message || "Something went wrong.", "error");
                         }
+                    })
+                    .catch(err => {
+                        Swal.fire("Error!", "Server communication failed.", "error");
                     });
             }
         });
