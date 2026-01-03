@@ -97,8 +97,16 @@
       "PackagePath": "staticwebassets/admin/assets/fonts/Roboto/Roboto-Regular.woff2"
     },
     {
+      "Id": "/Users/nurlanmahmudov/Desktop/Pronia1/Pronia/Pronia/wwwroot/admin/assets/images/35d00db5-6d86-4ddd-bf0b-8c9ad76545a7.png",
+      "PackagePath": "staticwebassets/admin/assets/images/35d00db5-6d86-4ddd-bf0b-8c9ad76545a7.png"
+    },
+    {
       "Id": "/Users/nurlanmahmudov/Desktop/Pronia1/Pronia/Pronia/wwwroot/admin/assets/images/3892e904-dfb9-4f00-b703-548d7867a7df.jpeg",
       "PackagePath": "staticwebassets/admin/assets/images/3892e904-dfb9-4f00-b703-548d7867a7df.jpeg"
+    },
+    {
+      "Id": "/Users/nurlanmahmudov/Desktop/Pronia1/Pronia/Pronia/wwwroot/admin/assets/images/72bf5432-9e8c-46fc-8240-2bc760b28924.png",
+      "PackagePath": "staticwebassets/admin/assets/images/72bf5432-9e8c-46fc-8240-2bc760b28924.png"
     },
     {
       "Id": "/Users/nurlanmahmudov/Desktop/Pronia1/Pronia/Pronia/wwwroot/admin/assets/images/arrow-down-dark.svg",
@@ -169,6 +177,10 @@
       "PackagePath": "staticwebassets/admin/assets/images/carousel/banner_9.jpg"
     },
     {
+      "Id": "/Users/nurlanmahmudov/Desktop/Pronia1/Pronia/Pronia/wwwroot/admin/assets/images/ddfc1895-0b80-48c8-837c-bbb9ef790517.jpeg",
+      "PackagePath": "staticwebassets/admin/assets/images/ddfc1895-0b80-48c8-837c-bbb9ef790517.jpeg"
+    },
+    {
       "Id": "/Users/nurlanmahmudov/Desktop/Pronia1/Pronia/Pronia/wwwroot/admin/assets/images/demo/boxed-layout.png",
       "PackagePath": "staticwebassets/admin/assets/images/demo/boxed-layout.png"
     },
@@ -231,6 +243,10 @@
     {
       "Id": "/Users/nurlanmahmudov/Desktop/Pronia1/Pronia/Pronia/wwwroot/admin/assets/images/demo/vertical-default.png",
       "PackagePath": "staticwebassets/admin/assets/images/demo/vertical-default.png"
+    },
+    {
+      "Id": "/Users/nurlanmahmudov/Desktop/Pronia1/Pronia/Pronia/wwwroot/admin/assets/images/e51a62d8-2bbd-4b37-97ae-bc2fc1cc19b0.png",
+      "PackagePath": "staticwebassets/admin/assets/images/e51a62d8-2bbd-4b37-97ae-bc2fc1cc19b0.png"
     },
     {
       "Id": "/Users/nurlanmahmudov/Desktop/Pronia1/Pronia/Pronia/wwwroot/admin/assets/images/faces/face1.jpg",

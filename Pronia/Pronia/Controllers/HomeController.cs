@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pronia.Contexts;
 using Pronia.Models;
+using Pronia.ViewModels;
 
 namespace Pronia.Controllers;
 
@@ -21,12 +22,15 @@ public class HomeController : Controller
     
     public async Task<IActionResult> Index()
     {
-        List<Card> cards = await _context.Cards.ToListAsync();
-        List<Product> products = await  _context.Products.ToListAsync();
-        
-        var model = Tuple.Create(cards, products);
-        
-        return View(model);
+        // Создаем нашу посылку
+        HomeVM vm = new HomeVM();
+            
+        // Заполняем её данными из таблиц базы данных
+        vm.Cards = _context.Cards.ToList();
+        vm.Products = _context.Products.ToList();
+
+        // Отправляем посылку во View
+        return View(vm);
     }
     
     public IActionResult Products()
@@ -45,6 +49,8 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+    
+    
     
   
 }
